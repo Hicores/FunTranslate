@@ -1,0 +1,8 @@
+{
+  "method": 2,
+  "url": "https://aip.baidubce.com/rpc/2.0/mt/texttrans/v1?access_token=$TOKEN$",
+  "headers": [{
+    "Content-Type": "application/json;charset=utf-8"
+  }],
+  "body": "{\"q\":\"hello\",\"from\":\"en\",\"to\":\"zh\",\"termIds\":\"xx1,xx2\"}"
+}
