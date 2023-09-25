@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">FunTranslate</string>
+    <string name="def_format">
+        $SOURCE_TEXT$\n\n
+        ----------------\n\n
+        $RESULT$
+    </string>
+    <string name="def_plugin">
+        public String onViewText(String text){
+             return "这是默认的翻译脚本,并没有任何内容";
+        }
+    </string>
 </resources>

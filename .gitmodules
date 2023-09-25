@@ -1,0 +1,6 @@
+[submodule "XLoader"]
+	path = XLoader
+	url = https://github.com/FunProjectX/XLoader
+[submodule "BeanShell"]
+	path = BeanShell
+	url = https://github.com/Hicores/BeanShell

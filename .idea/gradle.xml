@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
@@ -11,6 +12,16 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/BeanShell/beanshell20b6" />
+            <option value="$PROJECT_DIR$/XLoader" />
+            <option value="$PROJECT_DIR$/XLoader/Api" />
+            <option value="$PROJECT_DIR$/XLoader/Core" />
+            <option value="$PROJECT_DIR$/XLoader/SystemStub" />
+            <option value="$PROJECT_DIR$/XLoader/SystemStubBridge" />
+            <option value="$PROJECT_DIR$/XLoader/XInit" />
+            <option value="$PROJECT_DIR$/XLoader/anno" />
+            <option value="$PROJECT_DIR$/XLoader/annoScanner" />
+            <option value="$PROJECT_DIR$/XLoader/bridge" />
             <option value="$PROJECT_DIR$/app" />
           </set>
         </option>

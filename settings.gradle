@@ -15,3 +15,16 @@ dependencyResolutionManagement {
 
 rootProject.name = "FunTranslate"
 include ':app'
+
+include ':XLoader:SystemStubBridge'
+include ':XLoader:SystemStub'
+include ':XLoader:XInit'
+include ':XLoader:Api'
+include ':XLoader:Core'
+include ':XLoader:anno'
+include ':XLoader:annoScanner'
+include ':XLoader:bridge'
+
+
+include ':beanshell20b6'
+project(':beanshell20b6').projectDir = new File(rootDir, 'BeanShell/beanshell20b6/')

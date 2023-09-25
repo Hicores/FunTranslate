@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
@@ -10,134 +11,85 @@
         android:layout_marginBottom="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/main_all_switch"
+            android:text="功能总开关"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal">
-            <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:id="@+id/main_select_item"
-                android:background="#E5E5E5"
-                android:dropDownVerticalOffset="45dp"
-                android:spinnerMode="dropdown" />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:id="@+id/main_open_item_set"
-                android:text="项目操作"/>
+                android:id="@+id/main_open_item_input"
+                android:text="导入项目"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/main_item_output"
+                android:text="导出项目"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_set_name"
+                android:text="设置名字"/>
 
         </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="当前启用的项目:腾讯翻译TMT"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:id="@+id/tv_show_current_item"/>
 
-        <RadioGroup
-            android:orientation="horizontal"
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/change_api_limit"
+            android:text="API调用间隔(ms)"/>
+        <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <RadioButton
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_api_limit"
+            android:inputType="number"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/main_url_type_get"
-                android:text="GET"/>
-            <RadioButton
+                android:id="@+id/btn_edit_plugin"
+                android:text="修改脚本内容"/>
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/main_url_type_post"
-                android:checked="true"
-                android:text="POST"/>
-        </RadioGroup>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="url"/>
-        <EditText
-            android:id="@+id/main_input_url"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Token1"/>
-        <EditText
-            android:id="@+id/main_input_token1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Token2"/>
-        <EditText
-            android:id="@+id/main_input_token2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Token3"/>
-        <EditText
-            android:id="@+id/main_input_token3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+                android:id="@+id/btn_reload_plugin"
+                android:text="重新加载脚本"/>
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/main_btn_set_header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="设置Header"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="POST体类型"/>
-        <RadioGroup
-            android:orientation="horizontal"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <RadioButton
-                android:id="@+id/main_post_type_json"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="JSON"/>
-            <RadioButton
-                android:id="@+id/main_post_type_kv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="KV"/>
-        </RadioGroup>
+                android:text="修改显示格式"
+                android:id="@+id/btn_edit_format"/>
 
-        <Button
-            android:id="@+id/main_btn_set_post_body"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="设置BODY"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="获取结果"/>
-        <RadioGroup
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <RadioButton
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="JSON"/>
-        </RadioGroup>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="结果JSON查询字符串"/>
-        <EditText
-            android:id="@+id/main_input_result_query"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+                android:text="清除翻译缓存"
+                android:id="@+id/btn_clean_cache"/>
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/main_btn_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="保存配置"/>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -151,7 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:text="加入群组"/>
+                android:text="加入TG群组"/>
 
         </LinearLayout>
     </LinearLayout>
