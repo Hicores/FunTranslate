@@ -1,6 +1,9 @@
 package fun.project.translate.main;
 
+import java.nio.charset.StandardCharsets;
+
 import fun.project.translate.R;
+import fun.project.translate.utils.DataUtils;
 import fun.project.translate.utils.FunConf;
 import fun.xloader.anno.AutoRun;
 import fun.xloader.api.XUtils.XEnv;
@@ -16,6 +19,10 @@ public class GlobalConfig {
         PluginInfo.currentPluginInfo.limit = FunConf.getInt("FunTranslate","api_limit",0);
         PluginInfo.currentPluginInfo.isLimit = FunConf.getBoolean("FunTranslate","api_limit_open",false);
         PluginInfo.currentPluginInfo.name = FunConf.getString("FunTranslate","name","default");
-        PluginInfo.currentPluginInfo.pluginContent = FunConf.getString("FunTranslate","content",XEnv.getAppContext().getString(R.string.def_plugin));
+        PluginInfo.currentPluginInfo.pluginContent = FunConf.getString("FunTranslate","pluginContent", DataUtils.byteArrayToHex(XEnv.getAppContext().getString(R.string.def_plugin).getBytes(StandardCharsets.UTF_8)));
+
+        PluginInfo.currentPluginInfo.skipCacheWhenError = FunConf.getBoolean("FunTranslate","skip_cache_when_error",false);
+        PluginInfo.currentPluginInfo.errorRegex = FunConf.getString("FunTranslate","skip_cache_when_error_regex","");
+        PluginInfo.currentPluginInfo.pluginContent = new String(DataUtils.hexToByteArray(PluginInfo.currentPluginInfo.pluginContent));
     }
 }

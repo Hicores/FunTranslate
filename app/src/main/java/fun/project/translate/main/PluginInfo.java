@@ -17,6 +17,9 @@ public class PluginInfo {
     public boolean isLimit;
     public int limit;
 
+    public boolean skipCacheWhenError;
+    public String errorRegex;
+
     public String pluginContent;
 
     public String toJsonText(){
@@ -24,6 +27,8 @@ public class PluginInfo {
             JSONObject newJson = new JSONObject();
             newJson.put("isLimit",isLimit);
             newJson.put("name",name);
+            newJson.put("skipCacheWhenError",skipCacheWhenError);
+            newJson.put("errorRegex",errorRegex);
             newJson.put("limit",limit);
             newJson.put("plugin", DataUtils.byteArrayToHex(pluginContent.getBytes(StandardCharsets.UTF_8)));
             return newJson.toString();
@@ -38,6 +43,8 @@ public class PluginInfo {
             limit = newJson.optInt("limit");
             name = newJson.optString("name");
             pluginContent = new String(DataUtils.hexToByteArray(newJson.optString("plugin")));
+            skipCacheWhenError = newJson.optBoolean("skipCacheWhenError");
+            errorRegex = newJson.optString("errorRegex");
         }catch (Exception e){
             throw new RuntimeException(e);
         }

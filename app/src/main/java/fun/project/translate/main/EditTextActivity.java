@@ -15,6 +15,7 @@ import java.util.Map;
 import fun.project.translate.R;
 import fun.project.translate.utils.ClipboardUtils;
 import fun.project.translate.utils.FileSelect;
+import fun.xloader.api.XUtils.XInject;
 
 public class EditTextActivity extends Activity {
     private static final HashMap<String,EditCallback> hashMap = new HashMap<>();
@@ -27,7 +28,7 @@ public class EditTextActivity extends Activity {
 
 
         Intent intent = new Intent();
-        intent.setClass(context, FileSelect.FileSelectProxyActivity.class);
+        intent.setClass(context, EditTextActivity.class);
         intent.putExtra("content",content);
         intent.putExtra("hash",hash);
 
@@ -36,6 +37,12 @@ public class EditTextActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try {
+            XInject.injectContext(this);
+            setTheme(androidx.appcompat.R.style.Theme_AppCompat_DayNight);
+        } catch (Exception ignored) {  }
+
+
         String content = getIntent().getStringExtra("content");
         String hash = getIntent().getStringExtra("hash");
         EditCallback callback = hashMap.remove(hash);
@@ -58,5 +65,7 @@ public class EditTextActivity extends Activity {
         save.setOnClickListener(v->{
             callback.onSave(editText.getText().toString());
         });
+
+        editText.setSingleLine(false);
     }
 }

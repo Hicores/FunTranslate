@@ -1,13 +1,16 @@
 <resources>
     <string name="app_name">FunTranslate</string>
     <string name="def_format">
-        $SOURCE_TEXT$\n\n
-        ----------------\n\n
+        $SOURCE_TEXT$\n
+        ----------------\n
         $RESULT$
     </string>
     <string name="def_plugin">
-        public String onViewText(String text){
-             return "这是默认的翻译脚本,并没有任何内容";
+        public void init(){\n
+            &#160;&#160;&#160; \n
+        }
+        public String onViewText(String text){\n
+           &#160;&#160;&#160;  return \" [FunTranslate]这是默认的脚本,请导入可用脚本或者点击设置页面 修改脚本内容 进行修改\" ;\n
         }
     </string>
 </resources>

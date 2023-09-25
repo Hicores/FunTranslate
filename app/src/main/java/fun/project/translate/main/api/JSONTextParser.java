@@ -23,6 +23,9 @@ public class JSONTextParser {
             return def;
         }
     }
+    public Object get(String parserText){
+        return parse(parserText,json);
+    }
     private Object parse(String text,JSONObject json){
         try {
             int index = text.indexOf(".");

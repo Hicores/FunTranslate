@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import fun.project.translate.utils.FileUtils;
 import fun.xloader.anno.AutoRun;
@@ -14,15 +15,22 @@ public class HashCache {
     @AutoRun
     public static void initPath(){
         targetCacheFilePath = XEnv.getExtraCachePath() + "/FunTranslate_" + new SimpleDateFormat("yyyyMMdd") + ".json";
+        try{
+            JSONObject newJson = new JSONObject(FileUtils.readFileString(targetCacheFilePath));
+            Iterator<String> keysIt = newJson.keys();
+            while (keysIt.hasNext()){
+                String key = keysIt.next();
+                memoryCache.put(key, newJson.getString(key));
+            }
+        }catch (Exception e){
+
+        }
     }
     static {
         new Thread(HashCache::flushThread).start();
     }
     private static final HashMap<String,String> memoryCache = new HashMap<>();
     public static String targetCacheFilePath;
-    public static void initCacheFilePath(String path){
-        targetCacheFilePath = path;
-    }
     public static void cleanCache(){
         synchronized (memoryCache){
             memoryCache.clear();
@@ -36,7 +44,12 @@ public class HashCache {
     }
     public static void set(String key,String value){
         synchronized (memoryCache){
-            memoryCache.put(key,value);
+            if (value == null){
+                memoryCache.remove(key);
+            }else {
+                memoryCache.put(key,value);
+            }
+
         }
     }
     public static void flushThread(){
