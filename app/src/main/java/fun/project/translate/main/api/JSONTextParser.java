@@ -28,34 +28,36 @@ public class JSONTextParser {
     }
     private Object parse(String text,JSONObject json){
         try {
-            int index = text.indexOf(".");
-            String headText = index == -1 ? text : text.substring(0,index);
-            int arrSplit = headText.indexOf("[");
-            int arrIndex = -1;
-            if (arrSplit != -1){
-                int arrSplitLast = headText.lastIndexOf("]");
-                if (arrSplitLast == -1) return null;
-                arrIndex = Integer.parseInt(headText.substring(arrSplit+1,arrSplitLast));
-                headText = headText.substring(0,arrSplit);
-            }
-            Object o = json.get(headText);
-            if (arrIndex == -1){
-                if (index == -1){
-                    return o;
-                }else {
-                    return parse(text.substring(index+1), (JSONObject) o);
-                }
+            int objPointIndex = text.indexOf(".");
+            String objNodeText;
+            if (objPointIndex == -1){
+                objNodeText = text;
             }else {
-                JSONArray mArr = (JSONArray) o;
-                if (index == -1){
-                    return mArr.get(arrIndex);
-                }else {
-                    return parse(text.substring(index+1), mArr.getJSONObject(arrIndex));
+                objNodeText = text.substring(0,objPointIndex);
+            }
+
+            int arrSplitIndex = objNodeText.indexOf("[");
+
+            Object nextNode;
+            if (arrSplitIndex == -1){
+                nextNode = json.get(objNodeText);
+            }else {
+                nextNode = json.getJSONArray(objNodeText.substring(0,arrSplitIndex));
+                while (arrSplitIndex != -1){
+                    int arrSplitIndexClose = objNodeText.indexOf("]",arrSplitIndex);
+                    int arrIndex = Integer.parseInt(objNodeText.substring(arrSplitIndex+1,arrSplitIndexClose));
+                    nextNode = ((JSONArray)nextNode).get(arrIndex);
+                    arrSplitIndex = objNodeText.indexOf("[",arrSplitIndexClose+1);
                 }
+            }
+
+            if (objPointIndex == -1){
+                return nextNode;
+            }else {
+                return parse(text.substring(objPointIndex+1), (JSONObject) nextNode);
             }
         }catch (Exception e){
             return null;
         }
-
     }
 }

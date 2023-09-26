@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
@@ -20,7 +21,9 @@ public class SimpleHttpApi {
     }
     private HashMap<String,String> headers = new HashMap<>();
     private String url;
-    private HashMap<String,String> jsonBody = new HashMap<>();
+    private boolean isJsonBody;
+    private HashMap<String,String> IBody = new HashMap<>();
+    private String binaryText;
     public void header(String name,String value){
         headers.put(name,value);
     }
@@ -28,15 +31,38 @@ public class SimpleHttpApi {
         this.url = url;
     }
     public void jsonBody(String key, String value){
-        jsonBody.put(key, value);
+        IBody.put(key, value);
+        isJsonBody = true;
+    }
+    public void kvBody(String key,String value){
+        IBody.put(key,value);
+        isJsonBody = false;
+    }
+    public void binaryText(String text){
+        this.binaryText = text;
+    }
+    private byte[] generateBody(){
+        try {
+            if (isJsonBody){
+                JSONObject body = new JSONObject();
+                for (String key : IBody.keySet()){
+                    body.put(key,IBody.get(key));
+                }
+                return body.toString().getBytes(StandardCharsets.UTF_8);
+            }else {
+                StringBuilder bodyText = new StringBuilder();
+                for (String key : IBody.keySet()){
+                    bodyText.append(key).append("=").append(URLEncoder.encode(IBody.get(key),"UTF-8")).append("&");
+                }
+                return bodyText.toString().getBytes(StandardCharsets.UTF_8);
+            }
+        }catch (Exception e){
+            return new byte[0];
+        }
+
     }
     public String post(){
         try {
-            JSONObject body = new JSONObject();
-            for (String key : jsonBody.keySet()){
-                body.put(key,jsonBody.get(key));
-            }
-
             URL u = new URL(this.url);
             HttpURLConnection connection = (HttpURLConnection) u.openConnection();
             connection.setDoOutput(true);
@@ -47,7 +73,7 @@ public class SimpleHttpApi {
             }
 
             OutputStream out = connection.getOutputStream();
-            out.write(body.toString().getBytes(StandardCharsets.UTF_8));
+            out.write(generateBody());
             InputStream ins = connection.getInputStream();
             byte[] bytes = readAllBytes(ins);
             return new String(bytes, StandardCharsets.UTF_8);

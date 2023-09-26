@@ -20,17 +20,20 @@ public class HookForQQShowText {
     @AutoRun(pkg = Target.QQ)
     public static void doHookShow() throws NoSuchMethodException {
         XPBridge.hookBefore(XMethod.clz("com.tencent.qqnt.aio.widget.AIOMsgTextView").name("setText").ignoreParam().get(),param -> {
-            Spannable s = (Spannable) param.args[0];
-            if (!TextUtils.isEmpty(s) && GlobalConfig.global_switch){
-                UITask.submitTask(s.toString(),str -> {
-                    try {
-                        param.args[0] = GlobalConfig.show_format.replace("$SOURCE_TEXT$",s).replace("$RESULT$",str);
-                        XPBridge.invoke(param.method,param.obj,param.args);
-                    } catch (Exception ignored) {
+            if (param.args[0] instanceof Spannable){
+                Spannable s = (Spannable) param.args[0];
+                if (!TextUtils.isEmpty(s) && GlobalConfig.global_switch){
+                    UITask.submitTask(s.toString(),str -> {
+                        try {
+                            param.args[0] = GlobalConfig.show_format.replace("$SOURCE_TEXT$",s).replace("$RESULT$",str);
+                            XPBridge.invoke(param.method,param.obj,param.args);
+                        } catch (Exception ignored) {
 
-                    }
-                });
+                        }
+                    });
+                }
             }
+
         });
         XPBridge.hookBefore(XMethod.clz("com.tencent.qqnt.aio.widget.AIOMsgTextView").name("setTextDrawable").ignoreParam().get(),param -> {
             param.setResult(null);

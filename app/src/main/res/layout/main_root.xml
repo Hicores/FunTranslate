@@ -65,8 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edit_nocache_regex"
-            android:hint="错误返回识别(正则表达式)"
-            android:inputType="number"/>
+            android:hint="错误返回识别(正则表达式)" />
 
         <LinearLayout
             android:layout_width="wrap_content"
